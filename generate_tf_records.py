@@ -60,10 +60,10 @@ class TFRecord:
         classes = []
 
         for index, row in group.object.iterrows():
-            xmins.append(row['xmin'] / width)
-            xmaxs.append(row['xmax'] / width)
-            ymins.append(row['ymin'] / height)
-            ymaxs.append(row['ymax'] / height)
+            xmins.append(((row['xmin'] / width) if row['xmin'] > 0 else 0) if row['xmin'] <= 1920 else 0.9999)
+            xmaxs.append(((row['xmax'] / width) if row['xmax'] > 0 else 0) if row['xmax'] <= 1920 else 0.9999)
+            ymins.append(((row['ymin'] / height) if row['ymin'] > 0 else 0) if row['ymin'] <= 1080 else 0.9999)
+            ymaxs.append(((row['ymax'] / height) if row['ymax'] > 0 else 0) if row['ymax'] <= 1080 else 0.9999)
             classes_text.append(row['class'].encode('utf8'))
             classes.append(self.class_text_to_int(row['class']))
 
